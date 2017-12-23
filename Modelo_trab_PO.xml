@@ -1,0 +1,16 @@
+<modelo>
+	<tipo>MIN</tipo>
+	<num_var>4</num_var>
+	<num_restricao>3</num_restricao>
+	<A>
+		<linha>19420;16400;17330;19040</linha>
+		<linha>19420;16400;17330;19040</linha>
+		<linha>19420;16400;17330;19040</linha>
+	</A>
+	<B>
+		<linha>219316.667;2874607.84;59229</linha>
+	</B>
+	<C>
+		<linha>50;60;85;30</linha>
+	</C>
+</modelo>

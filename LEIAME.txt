@@ -1,0 +1,17 @@
+Leia-me
+Esta é a entrega da implementaçãodo trabalho de PO.
+
+O Arquivo Modelo_trab_PO.xml é o modelo do nosso problema na linguagem que o programa lerá
+e executará o solver.
+
+Para rodar o arquivo deve-rá ir em no menu arquivos/Abrir Arquivo, ou presionar Ctrl+O para abrir a 
+janela que permitirá selecionar um arquivo. se tudo rodar conforme o experado os dados aparecerão 
+em seus respectvos lugares nas tabelas, com os dados na tabela deverá selecionar no comboBox 
+de tipo de restrições o tipo maior ou igual(>=),após isso deverá calcular em Calcular Simplex se tudo ocorrer
+bem uma janela aparecerá para escolher o diretório onde será salvo o arquivo contendo o 
+resultado do simplex, na pasta dist existe uma execução prévia.
+
+Também será enviado um link em anexo com este trabalho de uma pasta no drive que contém o 
+executável do programa.
+
+Trabalho PO: Vitor Fernandes, Renato Lucas, Luis Felipe Nogueira
