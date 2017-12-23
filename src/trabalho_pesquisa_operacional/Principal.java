@@ -216,18 +216,18 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Combo_tipo_restricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel6))))
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Combo_tipo_restricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)))))
                 .addGap(33, 33, 33)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +241,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Radio_min)
                             .addComponent(Radio_max))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,18 +255,14 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addGap(23, 23, 23)
                                 .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel6))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Combo_tipo_restricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(Combo_tipo_restricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addComponent(jLabel3)
@@ -502,9 +498,9 @@ public class Principal extends javax.swing.JFrame {
 
                         //================Pegar Indices Básicos e não-básicos===
                         int contador_base = 0;
-                        for (int i = 0; i < A.length; i++) {
+                        for (double[] A1 : A) {
                             for (int j = 0; j < A[0].length; j++) {
-                                if (A[i][j] == 1 && j >= num_variaveis) {
+                                if (A1[j] == 1 && j >= num_variaveis) {
                                     IndicesBase[contador_base] = j + 1;
                                     contador_base++;
                                     break;
@@ -694,10 +690,10 @@ public class Principal extends javax.swing.JFrame {
                         }
 
                         aux = num_variaveis + num_restricoes;
-                        for (int i = 0; i < A.length; i++) {
+                        for (double[] A1 : A) {
                             for (int j = num_variaveis; j < A[0].length; j++) {
-                                if (A[i][j] == -1) {
-                                    A[i][aux] = 1;
+                                if (A1[j] == -1) {
+                                    A1[aux] = 1;
                                     aux++;
                                     break;
                                 }
@@ -707,9 +703,9 @@ public class Principal extends javax.swing.JFrame {
                         //======================================================
                         //================Pegar Indices Básicos e não-básicos===
                         int contador_base = 0;
-                        for (int i = 0; i < A.length; i++) {
+                        for (double[] A1 : A) {
                             for (int j = 0; j < A[0].length; j++) {
-                                if (A[i][j] == 1 && j >= num_variaveis) {
+                                if (A1[j] == 1 && j >= num_variaveis) {
                                     IndicesBase[contador_base] = j;
                                     contador_base++;
                                     break;
@@ -767,9 +763,9 @@ public class Principal extends javax.swing.JFrame {
 
                         //Preenchendo os Indices básicos e não básicos==========
                         int contador_base = 0;
-                        for (int i = 0; i < A.length; i++) {
+                        for (double[] A1 : A) {
                             for (int j = 0; j < A[0].length; j++) {
-                                if (A[i][j] == 1 && j >= num_variaveis) {
+                                if (A1[j] == 1 && j >= num_variaveis) {
                                     IndicesBase[contador_base] = j;
                                     contador_base++;
                                     break;
@@ -826,9 +822,9 @@ public class Principal extends javax.swing.JFrame {
 
                     //Preenchendo os Indices básicos e não básicos==============
                     int contador_base = 0;
-                    for (int i = 0; i < A.length; i++) {
+                    for (double[] A1 : A) {
                         for (int j = 0; j < A[0].length; j++) {
-                            if (A[i][j] == 1 && j >= num_variaveis) {
+                            if (A1[j] == 1 && j >= num_variaveis) {
                                 IndicesBase[contador_base] = j;
                                 contador_base++;
                                 break;
@@ -928,7 +924,7 @@ public class Principal extends javax.swing.JFrame {
         if (verifica_formato.contains(".xml")) {
             Dados_In aux = new Dados_In();
             aux.leitura_arquivo(chooser.getSelectedFile());
-            
+
             //A partir daqui eu vou tratar a Tela===============================
             //tratando o tipo de modelo, maximização ou minimização=============
             switch (aux.getTipo()) {
@@ -957,9 +953,7 @@ public class Principal extends javax.swing.JFrame {
             }
 
             for (int i = 0; i < aux.getNum_restricao(); i++) {
-                for (int j = 0; j < aux.getNum_var(); j++) {
-                    data_A[i][j] = aux.getMatriz_coef()[i][j];
-                }
+                System.arraycopy(aux.getMatriz_coef()[i], 0, data_A[i], 0, aux.getNum_var());
             }
 
             //gambiarra
@@ -1006,9 +1000,7 @@ public class Principal extends javax.swing.JFrame {
             //tratando a tabela C/custos========================================
             Object[][] data_C = new Object[1][aux.getNum_var()];
 
-            for (int i = 0; i < aux.getNum_var(); i++) {
-                data_C[0][i] = aux.getCustos()[i];
-            }
+            System.arraycopy(aux.getCustos(), 0, data_C[0], 0, aux.getNum_var());
 
             DefaultTableModel minha_tabela_C = new DefaultTableModel(data_C, titulos_tabela);
             Tabela_custo_oti.setModel(minha_tabela_C);
@@ -1030,27 +1022,21 @@ public class Principal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Principal().setVisible(true);
         });
     }
 
