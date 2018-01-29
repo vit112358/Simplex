@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
 //import trabalho_pesquisa_operacional.Operacoes_Matriciais.TAD_Operacoes_Matriciais;
 public class Metodo_Simplex {
 
-    public static String userHomedir = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "novo.txt";
+    public static String userHomedir = System
+            .getProperty("user.home") + File.separator + "Desktop" + File.separator + "novo.txt";
 
     /**
      * Construtor da classe
@@ -42,29 +43,51 @@ public class Metodo_Simplex {
      * de otimizado
      * @throws java.io.IOException
      */
-    public static double[] Calcula_Simplex(double[][] A, double[] b, double[] c, int[] IndicesBase, int[] IndicesNaoBase, int m, int n, String caminho) throws IOException {
+    public static double[] Calcula_Simplex(double[][] A, double[] b, double[] c,
+            int[] IndicesBase, int[] IndicesNaoBase,
+            int m, int n, String caminho) throws IOException {
+        
+        //Declarando BufferedWriter que será usado para escrever no arquivo
         BufferedWriter escritor;
 
+        //Instanciando o BufferedWriter(escritor) e um FileWriter
+        /*O FileWriter escreve diretamente no arquivo. 
+        O BufferedWriter, assim como vários outros writers do Java, usam o padrão decorator. 
+        Isso permite combinar writers diferentes, para os mais diversos tipos de situação.
+        
+        O BufferedWriter faz com que todo comando de escrita vá para um buffer e
+        , só de vez enquando, seja enviado de uma só vez para o 
+        Writer que for passado para ele no construtor. 
+        Isso otimiza o processo de leitura e escrita em dispositivos lentos.
+        */
         escritor = new BufferedWriter(new FileWriter(caminho));
 
+        //linhas a ser lida, mesmo não sendo necessário, "limpei" a String 
+        //para evitar qualquer possível erro 
         String linha = "";
         int iteracao = 0;
 
         boolean Terminou = false;
 
-        TAD_Operacoes_Matriciais tad = new TAD_Operacoes_Matriciais();//Tad de operações
+        //Tad de operações
+        TAD_Operacoes_Matriciais tad = new TAD_Operacoes_Matriciais();
 
-        double[][] Matriz_basica;//Esta matriz vai receber os elementos da Base                       
-        double[][] InversaBase=null;//Esta matriz vai receber a inversa da Base
+        //Esta matriz vai receber os elementos da Base
+        double[][] Matriz_basica;
+        //Esta matriz vai receber a inversa da Base
+        double[][] InversaBase=null;
 
-        double[] x = new double[n];//Soluçao Básica Factível, é o produto da inversa da Base por b
-        double[] solucao = new double[n];//soulucao final
+        //Soluçao Básica Factível, é o produto da inversa da Base por b
+        double[] x = new double[n];
+        //solucao final
+        double[] solucao = new double[n];
         //laço de repetição do método
         do {
             linha = "Iteração " + iteracao + "\n";
             escritor.append(linha);
             linha = "";
-            Matriz_basica = new double[m][m];//instanciando o espaço para a matriz básica
+            //instanciando o espaço para a matriz básica
+            Matriz_basica = new double[m][m];
 
 //Inicio Passo 1: Calculando SBF inicial============================
             for (int i = 0; i < A.length; i++) {
@@ -93,7 +116,10 @@ public class Metodo_Simplex {
             try {
                 InversaBase = tad.calculaInversa(Matriz_basica);                
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Não existe solução, pois existe uma matriz que não possui determinante", "Não Existe Solução", JOptionPane.ERROR_MESSAGE);
+                JOptionPane
+                        .showMessageDialog(null, "Não existe solução, "
+                                + "pois existe uma matriz que não "
+                                + "possui determinante", "Não Existe Solução", JOptionPane.ERROR_MESSAGE);
                 escritor.close();
                 throw new RuntimeException("Não existe solução");
             }

@@ -14,7 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
-import trabalho_pesquisa_operacional.Operacoes_Matriciais.TAD_Operacoes_Matriciais;
+import trabalho_pesquisa_operacional
+        .Operacoes_Matriciais.TAD_Operacoes_Matriciais;
 
 /**
  *
@@ -39,7 +40,8 @@ public class Dados_In {
      * @param custos: vetor de custos;
      * @param recursos: vetor de recursos
      */
-    public Dados_In(String tipo, int num_var, int num_restricao, String[][] matriz_coef, String[] custos, String[] recursos) {
+    public Dados_In(String tipo, int num_var, int num_restricao, 
+            String[][] matriz_coef, String[] custos, String[] recursos) {
         this.tipo = tipo;
         this.num_var = num_var;
         this.num_restricao = num_restricao;
@@ -54,6 +56,8 @@ public class Dados_In {
         this.recursos = new String[num_restricao];
     }
 
+    /*GET & SETTER'S==========================================================*/
+    
     public String getTipo() {
         return tipo;
     }
@@ -101,7 +105,9 @@ public class Dados_In {
     public void setRecursos(String[] recursos) {
         this.recursos = recursos;
     }
-
+    
+    //==========================================================================
+    
     /**
      * Esta função realizará a leitura do arquivo
      *
@@ -120,25 +126,35 @@ public class Dados_In {
                 try {
                     //enquanto eu conseguir ler o arquivo faço algo
                     while (meu_buffer.ready()) {
+                        
+                        //lendo a linha
                         linha = meu_buffer.readLine();
                         
-                        if (linha.contains("tipo")) {//se a linha contém a chave que define o tipo
-                            this.tipo = linha.substring(linha.indexOf("<tipo>") + 6, linha.indexOf("</tipo>"));
-                        } else if (linha.contains("<num_var>")) {//se a linha contém a chave que define o numero de váriaveis
-                            String aux = linha.substring(linha.indexOf("<num_var>") + 9, linha.indexOf("</num_var>"));
+                        if (linha.contains("tipo")) {
+                            //se a linha contém a chave que define o tipo
+                            this.tipo = linha
+                                    .substring(linha.indexOf("<tipo>") + 6, linha.indexOf("</tipo>"));
+                        } else if (linha.contains("<num_var>")) {
+                            //se a linha contém a chave que define o numero de váriaveis
+                            String aux = linha
+                                    .substring(linha.indexOf("<num_var>") + 9, linha.indexOf("</num_var>"));
                             this.num_var = Integer.parseInt(aux);
-                        } else if (linha.contains("num_restricao")) {//se a linha contém a chave que define o número de restrições
-                            String aux = linha.substring(linha.indexOf("<num_restricao>") + 15, linha.indexOf("</num_restricao>"));
+                        } else if (linha.contains("num_restricao")) {
+                            //se a linha contém a chave que define o número de restrições
+                            String aux = linha
+                                    .substring(linha.indexOf("<num_restricao>") + 15, linha.indexOf("</num_restricao>"));
                             this.num_restricao = Integer.parseInt(aux);
                         } else if (linha.contains("<A>")) {
                             
-                            int Indice_linha = 0;//indice da linha para inserir o elemento certo na matriz A
+                            //indice da linha para inserir o elemento certo na matriz A
+                            int Indice_linha = 0;
                             
                             String[][] matriz_auxiliar = new String[this.num_restricao][this.num_var];
                             linha = meu_buffer.readLine();
                             
                             do {
-                                String aux = linha.substring(linha.indexOf("<linha>") + 7, linha.indexOf("</linha>"));
+                                String aux = linha
+                                        .substring(linha.indexOf("<linha>") + 7, linha.indexOf("</linha>"));
                                 StringTokenizer meu_tokenizer = new StringTokenizer(aux, ";");
                                 
                                 int Indice_coluna = 0;
@@ -153,13 +169,15 @@ public class Dados_In {
                             this.matriz_coef = matriz_auxiliar;
                         } else if (linha.contains("<B>")) {
                             
-                            int Indice_coluna = 0;//indice da coluna para inserir o elemento certo na matriz
+                            //indice da coluna para inserir o elemento certo na matriz
+                            int Indice_coluna = 0;
                             
                             String[] vetor_auxiliar = new String[this.num_restricao];
                             
                             linha = meu_buffer.readLine();
                             
-                            String aux = linha.substring(linha.indexOf("<linha>") + 7, linha.indexOf("</linha>"));
+                            String aux = linha
+                                    .substring(linha.indexOf("<linha>") + 7, linha.indexOf("</linha>"));
                             
                             StringTokenizer meu_tokenizer = new StringTokenizer(aux, ";");
                             while (meu_tokenizer.hasMoreElements()) {
@@ -169,13 +187,16 @@ public class Dados_In {
                             }
                             this.recursos = vetor_auxiliar;
                         } else if (linha.contains("<C>")) {
-                            int Indice_coluna = 0;//indice da coluna para inserir o elemento certo na matriz
+                            
+                            //indice da coluna para inserir o elemento certo na matriz
+                            int Indice_coluna = 0;
                             
                             String[] vetor_auxiliar = new String[this.num_var];
                             
                             linha = meu_buffer.readLine();
                             
-                            String aux = linha.substring(linha.indexOf("<linha>") + 7, linha.indexOf("</linha>"));
+                            String aux = linha
+                                    .substring(linha.indexOf("<linha>") + 7, linha.indexOf("</linha>"));
                             
                             StringTokenizer meu_tokenizer = new StringTokenizer(aux, ";");
                             while (meu_tokenizer.hasMoreElements()) {
@@ -187,13 +208,17 @@ public class Dados_In {
                         }
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(Dados_In.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger
+                        .getLogger(Dados_In.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao ler o Caminho! verifique o caminho", "Erro", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(Dados_In.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao ler o Caminho! "
+                    + "Verifique o caminho", "Erro", JOptionPane.ERROR_MESSAGE);
+            Logger
+                .getLogger(Dados_In.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Dados_In.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                .getLogger(Dados_In.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dados;

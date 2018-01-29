@@ -23,13 +23,14 @@ import trabalho_pesquisa_operacional.Operacoes_Matriciais.*;
 public class Principal extends javax.swing.JFrame {
 
     /**
-     * Creates new form Principal ESTA CLASSE CUIDARÁ DA TELA E DE RECEBER OS
-     * DADOS
+     * Creates new form Principal 
+     * ESTA CLASSE CUIDARÁ DA TELA E DE RECEBER OS DADOS
      */
     /*Minhas Variáveis*/
     int num_variaveis;
     int num_restricoes;
-    int indiceSel;//selecione seo tipo é de maior ou menor
+    //selecione se o tipo é de maior ou menor
+    int indiceSel;
 
     //==========================================================================
     public Principal() {
@@ -295,6 +296,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
+        
         //tratando a matriz de coeficiente
         String[] dados = new String[num_restricoes];
         ((DefaultTableModel) jTable1.getModel()).addColumn("x" + (jTable1.getColumnCount() + 1), dados);
@@ -426,7 +428,8 @@ public class Principal extends javax.swing.JFrame {
 
         switch (indiceSel) {
             case 0:
-                String Aux = JOptionPane.showInputDialog(rootPane, "Por Padrão, todas as restrições serão do tipo Menor ou igual. "
+                String Aux = JOptionPane.showInputDialog(rootPane, "Por Padrão, "
+                        + "todas as restrições serão do tipo Menor ou igual. "
                         + "Existe alguma restrição do tipo de Maior ou Igual?\n"
                         + "Se sim coloque o ìndice da restrição no seguinte formato:<Indice1,Indice2,...>",
                         "Verificação de Restriçoes", JOptionPane.INFORMATION_MESSAGE);
@@ -560,14 +563,16 @@ public class Principal extends javax.swing.JFrame {
                                 }
                             }
                         } else {
-                            throw new RuntimeException("Erro não foi possível computar os custos");
+                            throw new RuntimeException("Erro não foi possível "
+                                    + "computar os custos");
                         }
                     }
 
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Não foi passado a "
                             + "forma padrão de correção das restriçoes.\n"
-                            + "O problema será computado da forma padrão", "Verificação das Restrições", JOptionPane.INFORMATION_MESSAGE);
+                            + "O problema será computado da forma padrão", "Verificação "
+                                    + "das Restrições", JOptionPane.INFORMATION_MESSAGE);
                     A = new double[num_restricoes][num_variaveis + num_restricoes];
                     c = new double[num_variaveis + num_restricoes];
                     IndicesNaoBase = new int[num_variaveis];
@@ -610,7 +615,8 @@ public class Principal extends javax.swing.JFrame {
                             }
                         }
                     } else {
-                        throw new RuntimeException("Erro não foi possível computar os custos");
+                        throw new RuntimeException("Erro não foi possível "
+                                + "computar os custos");
                     }
                     //======================================================
                 }
@@ -618,9 +624,11 @@ public class Principal extends javax.swing.JFrame {
                 tad.printa_matriz(A);
                 break;
             case 1:
-                String Aux1 = JOptionPane.showInputDialog(rootPane, "Por Padrão, todas as restrições serão do tipo Maior ou Igual. "
+                String Aux1 = JOptionPane.showInputDialog(rootPane, "Por Padrão, "
+                        + "todas as restrições serão do tipo Maior ou Igual. "
                         + "Existe alguma restrição do tipo Menor ou Igual?\n"
-                        + "Se sim coloque o ìndice da restrição no seguinte formato:<Indice1,Indice2,...>",
+                        + "Se sim coloque o ìndice da restrição no seguinte "
+                        + "formato:<Indice1,Indice2,...>",
                         "Verificação de Restriçoes", JOptionPane.INFORMATION_MESSAGE);
                 int[] vetor_aux1 = null;
 
@@ -859,7 +867,9 @@ public class Principal extends javax.swing.JFrame {
                 c[i] = c[i] * (-1);
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, " Impossível Maximizar e Minimizar um modelo ", " Erro ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane
+                    .showMessageDialog(rootPane, " Impossível Maximizar "
+                    + "e Minimizar um modelo ", " Erro ", JOptionPane.ERROR_MESSAGE);
         }
 
         JFileChooser chooser = new JFileChooser();
@@ -888,12 +898,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void Btn_SimplexMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_SimplexMouseEntered
         // TODO add your handling code here:
-        Btn_Simplex.setToolTipText("Este botão irá recolher os dados da tela e usá-los para otimizar o modelo dado, utilizando o método Simplex");
+        Btn_Simplex.setToolTipText("Este botão irá recolher "
+                + "os dados da tela e usá-los para otimizar o modelo dado, "
+                + "utilizando o método Simplex");
     }//GEN-LAST:event_Btn_SimplexMouseEntered
 
     private void Tabela_custo_otiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_custo_otiMouseEntered
         // TODO add your handling code here:
-        Tabela_custo_oti.setToolTipText("Se o modelo já estiver na forma padrão, favor escolher a opção de Minimização");
+        Tabela_custo_oti.setToolTipText("Se o modelo já estiver na forma padrão,"
+                + " favor escolher a opção de Minimização");
     }//GEN-LAST:event_Tabela_custo_otiMouseEntered
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -1006,7 +1019,8 @@ public class Principal extends javax.swing.JFrame {
             Tabela_custo_oti.setModel(minha_tabela_C);
             //==================================================================
         } else {
-            JOptionPane.showInputDialog(rootPane, "Erro! Formato não aceito. Por favor selecione o arquivo xml", verifica_formato, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showInputDialog(rootPane, "Erro! Formato não aceito. "
+                    + "Por favor selecione o arquivo xml", verifica_formato, JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException("Erro de Formato");
         }
     }//GEN-LAST:event_Menu_item_abrir_arquivoActionPerformed

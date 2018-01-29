@@ -9,12 +9,14 @@ import java.math.RoundingMode;
  */
 public class TAD_Operacoes_Matriciais {
 
-    /*Esta operação define a multiplicação de uma matriz por um escalar
-    @parametros:
-    matriz: matriz que vai ser multiplicada;
-    escalar: valor que eu vou multiplicar a matriz
-    num_linhas: número de linhas da matriz original
-    num_colunas: número de colun as da matriz original
+    /**
+     * Esta operação define a multiplicação de uma matriz por um escalar
+     * 
+     * @param matriz: matriz que vai ser multiplicada;
+     * @param escalar: valor que eu vou multiplicar a matriz;
+     * @param num_linhas: número de linhas da matriz original
+     * @param num_colunas: número de colun as da matriz original
+     * @return retorna uma matriz
      */
     public double[][] multiplica_escalar(double[][] matriz, double escalar, int num_linhas, int num_colunas) {
         double[][] matriz_resultado = new double[num_linhas][num_colunas];
@@ -26,10 +28,12 @@ public class TAD_Operacoes_Matriciais {
         return matriz_resultado;
     }
 
-    /*ESTA FUNÇÃO DEFINE O PRODUTO VETORIAL entre vetores linha e vetores coluna
-    @parametros:
-    vet1: primeiro vetor a ser multiplicado
-    vet2: segundo vetor a ser multiplicado
+    /**
+     * ESTA FUNÇÃO DEFINE O PRODUTO VETORIAL entre vetores linha e vetores coluna
+     * 
+     * @param vet1: primeiro vetor a ser multiplicado
+     * @param vet2: segundo vetor a ser multiplicado
+     * @return retorna um número que é defino pelo produto escalar
      */
     public double produto_escalar(double vet1[], double vet2[]) {
         double resultado;
@@ -46,10 +50,12 @@ public class TAD_Operacoes_Matriciais {
         }
     }
 
-    /*Esta função calcula o produto de matrizes
-    @parametros:
-    matriz_a:primeira matriz a ser multiplicada
-    matriz_b:segunda matriz a ser multiplicada
+    /**
+     * Esta função calcula o produto de matrizes
+     * 
+     * @param matriz_a: primeira matriz a ser multiplicada
+     * @param matriz_b: segunda matriz a ser multiplicada
+     * @return retorna a matriz gerada pela multiplicação de A por B 
      */
     public double[][] produto_matricial(double[][] matriz_a, double[][] matriz_b) {
 
@@ -103,9 +109,11 @@ public class TAD_Operacoes_Matriciais {
         }
     }
 
-    /*Esta função calcula a transposta de uma matriz dada
-    @parametros:
-    matriz: matriz a ser transposta;
+    /**
+     * Esta função calcula a transposta de uma matriz dada
+     * 
+     * @param matriz: matriz a ser transposta
+     * @return retorna a matriz transposta
      */
     public double[][] transpor_matriz(double[][] matriz) {
         double[][] transposta = new double[matriz[0].length][matriz.length];
@@ -128,16 +136,25 @@ public class TAD_Operacoes_Matriciais {
     @parametros:
     matriz: matriz a ser usada;
      */
+    /**
+     * Esta função calcula o determinante da matriz dada
+     * 
+     * @param matriz: matriz a ser usada
+     * @return retorna o determinante da matriz, se la for quadrada, 
+     * caso contrário, retorna uma exceção
+     */
     public double calcula_determinante(double[][] matriz) {
         double determinante;
+        //se diemnsão igual à 2 retorna o calculo feito na mão
         if (matriz.length == matriz[0].length) {
-            if (matriz.length == 2) {//se diemnsão igual à 2 retorna o calculo feito na mão
+            if (matriz.length == 2) {
                 determinante = (matriz[0][0] * matriz[1][1]) - (matriz[1][0] * matriz[0][1]);
                 return determinante;
             } else {
                 double soma = 0;
                 for (int i = 0; i < matriz.length; i++) {
                     double[][] new_matriz = new double[matriz.length - 1][matriz.length - 1];
+                    
                     for (int j = 0; j < matriz.length; j++) {
                         if (j != i) {
                             for (int k = 1; k < matriz.length; k++) {
@@ -151,6 +168,7 @@ public class TAD_Operacoes_Matriciais {
                             }
                         }
                     }
+                    
                     if (i % 2 == 0) {
                         soma += matriz[i][0] * calcula_determinante(new_matriz);
                     } else {
@@ -163,17 +181,53 @@ public class TAD_Operacoes_Matriciais {
             throw new RuntimeException("Erro matriz não quadrada!!");
         }
     }
-
-    /*Esta função calcula a inversa da matriz dada
-    @parametros:
-    matriz: matriz a ser invertida;
+    
+    /**
+     * Calcula o determinante com o primeiro passo da decomposição LU,
+     * que é zerar a parte inferior à diagonal principal, 
+     * gerando uma matriz triangular superior, sendo assim basta multiplicar 
+     * a diagonal principal para obter o determinante.
+     * 
+     * @param matriz: matriz que vai ser calculada o determinante
+     * @return double: determinante da matriz passada
      */
+    public double CalculaDeterminanteLU(double[][] matriz){
+        double det=1;
+        double multiplicador;
+        if(matriz.length == matriz[0].length){
+            if(matriz.length == 2){
+                det = (matriz[0][0] * matriz[1][1]) - (matriz[1][0] * matriz[0][1]);
+                return det;
+            }else{
+                for (int i = 0; i < matriz.length-1; i++) {
+                    for (int j = i+1; j < matriz.length; j++) {
+                        multiplicador =  matriz[j][i] / matriz[i][i];
+                        for (int k = 0; k < matriz[0].length; k++) {
+                            matriz[j][k] = matriz[j][k] - multiplicador * matriz[i][k];
+                        }
+                    }
+                }
+                
+                for (int i = 0; i < matriz.length; i++) {
+                    det=det*matriz[i][i];
+                }
+                
+                return det;
+            }
+        }else{
+            throw new RuntimeException("Erro! Matriz nao quadrada.");
+        }
+    }
     //=====Inicio dos métodos auxiliares para calcular a Inversa================
-    /*Esta função vai calcular a Submatriz de dada matriz 
-    @parametros: 
-    matriz: a matriz que vai ser cortada
-    i:coluna que vai ser retirada
-    j:linha que vai ser retirada
+    
+    /**
+     * Esta função vai calcular a Submatriz de dada matriz 
+     * 
+     * @param i: coluna que vai ser retirada
+     * @param j: linha que vai ser retirada
+     * @param matriz: a matriz que vai ser cortada
+     * @return retorna a nova matriz cortada, ela foi gerada a partir da matriz  
+     * dada, retirando a coluna i e a linha j;
      */
     public double[][] SubMatriz(int i, int j, double[][] matriz) {
         double[][] SubMatriz = new double[matriz.length - 1][matriz.length - 1];
@@ -196,9 +250,12 @@ public class TAD_Operacoes_Matriciais {
         }
         return SubMatriz;
     }
-
-    /*Esta função vai calcular a matriz adjunta de dada matriz
-    @parametros: matriz: a matriz que vai ser calculada a adjunta
+    
+    /**
+     * Esta função vai calcular a matriz adjunta de dada matriz
+     * 
+     * @param matriz: matriz que vai gerar a matriz adjunta
+     * @return retorna uma matriz que será ADJUNTA de A
      */
     public double[][] calculaMatrizAdjunta(double[][] matriz) {
         double[][] tempAdjunta = new double[matriz.length][matriz.length];
@@ -214,8 +271,11 @@ public class TAD_Operacoes_Matriciais {
     }
 
     //====Fim dos métodos auxiliares============================================
-    /*Esta função calcula a inversa de dada matriz pelo método dos cofatores
-    @parametros: matriz a ser calculada a inversa
+    /**
+     * Calcula a matriz inversa usando o método de Gauss-Jordan
+     * 
+     * @param matriz: matriz a ser calculada a Inversa
+     * @return matriz inversa de A
      */
     public double[][] calculaInversa(double[][] matriz) {
         BigDecimal numero;
@@ -226,7 +286,8 @@ public class TAD_Operacoes_Matriciais {
             aux = this.calculaMatrizAdjunta(matriz);
             for (int i = 0; i < matriz.length; i++) {
                 for (int j = 0; j < matriz.length; j++) {
-                    numero = new BigDecimal(((1 / resultado) * aux[i][j])).setScale(6, RoundingMode.HALF_EVEN);
+                    numero = new BigDecimal(((1 / resultado) * aux[i][j]))
+                            .setScale(6, RoundingMode.HALF_EVEN);
                     //a linha acima arredonda o número
                     Inversa[i][j] = numero.doubleValue();
                 }
@@ -236,6 +297,97 @@ public class TAD_Operacoes_Matriciais {
             this.printa_matriz(matriz);
             throw new RuntimeException("O determinante de dada Matriz é zero,"
                     + " logo não existe INVERSA, Use outra matriz!!");
+        }
+    }
+
+    /**
+     * 
+     *
+     * @param matriz_A matriz a ser calculada a Inversa
+     * @return matriz inversa de A
+     */
+    public double[][] calculaInversaGaussJordan(double[][] matriz_A) {
+        BigDecimal numero;//arredondamento
+        
+        //numero de linhas da matriz original
+        int num_linhas_A = matriz_A.length;
+        //número de colunas da matriz original
+        int num_colunas_A = matriz_A[0].length;
+        
+        /*matriz aumentada A|I, onde I é a identidade*/
+        double[][] matriz_A_aumentada = new double[num_linhas_A][num_colunas_A * 2];
+
+        if ((calcula_determinante(matriz_A) != 0) && (matriz_A.length == matriz_A[0].length)) {
+            int pos = num_linhas_A;
+            /*Da linha 258 a 271 os for's irão construir a matriz aumentada*/
+            for (int i = 0; i < num_linhas_A; i++) {//linhas
+                for (int j = 0; j < num_colunas_A * 2; j++) {//colunas
+                    if (j < num_colunas_A) {
+                        matriz_A_aumentada[i][j] = matriz_A[i][j];
+                    } else {
+                        if (j == pos) {
+                            matriz_A_aumentada[i][j] = 1;
+                        } else {
+                            matriz_A_aumentada[i][j] = 0;
+                        }
+                    }
+                }
+                pos++;
+            }
+
+            int num_linhas_A_aumentada = matriz_A_aumentada.length;
+            int num_colunas_A_aumentada = matriz_A_aumentada[0].length;
+            double multiplicador;
+
+            /*Da linha 278 a 285 os for irão zerar a parte inferior à 
+            diagonal principal*/
+            for (int i = 0; i < num_linhas_A_aumentada - 1; i++) {
+                for (int j = i + 1; j < num_linhas_A_aumentada; j++) {
+                    multiplicador = matriz_A_aumentada[j][i] / matriz_A_aumentada[i][i];
+                    for (int k = 0; k < num_colunas_A_aumentada; k++) {
+                        matriz_A_aumentada[j][k] = matriz_A_aumentada[j][k] - multiplicador * matriz_A_aumentada[i][k];
+                    }
+                }
+            }
+
+            /*Da linha 288 à 295 os for's irão zerar a parte superior à 
+            diagonal principal*/
+            for (int i = num_linhas_A_aumentada - 1; i >= 1; i--) {
+                for (int j = i - 1; j >= 0; j--) {
+                    multiplicador = matriz_A_aumentada[j][i] / matriz_A_aumentada[i][i];
+                    for (int k = 0; k < num_colunas_A_aumentada; k++) {
+                        matriz_A_aumentada[j][k] = matriz_A_aumentada[j][k] - multiplicador * matriz_A_aumentada[i][k];
+                    }
+                }
+            }
+                
+            /*Da linha 298 à 304 os for's irão transformar a diagonal 
+            principal em 1*/
+            for (int i = 0; i < num_linhas_A_aumentada; i++) {
+                //System.out.println(matriz_A_aumentada[i][i]);
+                double aux = matriz_A_aumentada[i][i];
+                for (int j = 0; j < num_colunas_A_aumentada; j++) {
+                    matriz_A_aumentada[i][j] = (matriz_A_aumentada[i][j] / aux);
+                }
+            }
+
+            double[][] Inversa = new double[num_linhas_A][num_colunas_A];
+            for (int i = 0; i < num_linhas_A_aumentada; i++) {
+                for (int j = 0; j < num_colunas_A; j++) {
+                    numero = new BigDecimal(matriz_A_aumentada[i][j + num_linhas_A])
+                            .setScale(6, RoundingMode.HALF_EVEN);
+                    Inversa[i][j] = numero.doubleValue();
+                }
+            }
+            /*debug*/
+            //System.out.println("Inversa");
+            //printa_matriz(Inversa);
+
+            return Inversa;
+        } else {
+            throw new RuntimeException("O determinante da matriz não existe "
+                    + "ou ela não é quadrada, logo não existe INVERSA. "
+                    + "Use outra Matriz!!");
         }
     }
 
@@ -255,16 +407,17 @@ public class TAD_Operacoes_Matriciais {
 
     /**
      * Esta função printa dado vetor
-     * @param vetor: vetor a ser printado; 
+     *
+     * @param vetor: vetor a ser printado;
      */
     public void printa_vetor(double[] vetor) {
         for (int i = 0; i < vetor.length; i++) {
-            System.out.print("[" +vetor[i]+"]");
+            System.out.print("[" + vetor[i] + "]");
         }
         System.out.println("");
     }
-    
-    public boolean contains(int[] vetor, int elemento){
+
+    public boolean contains(int[] vetor, int elemento) {
         for (Object vetor1 : vetor) {
             if (vetor1.equals(elemento)) {
                 return true;
